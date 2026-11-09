@@ -1,0 +1,78 @@
+/* V6 MODERN LAYER — loaded after style.css. Foto tidak diedit; hanya efek CSS di sekitar/atas frame. */
+:root{--display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;--heading:var(--display);--ease:cubic-bezier(.2,.8,.2,1)}
+h1,h2,h3,.brand-name{font-family:var(--display);letter-spacing:-.03em}
+.scroll-progress{position:fixed;inset:0 0 auto;height:3px;z-index:60;transform-origin:0 50%;scale:var(--sp,0) 1;background:linear-gradient(90deg,var(--accent),#ff8a5c)}
+.site-header{transition:translate .5s var(--ease),background .3s,border-color .3s}
+.site-header.is-hidden{translate:0 -100%}
+.site-header.is-scrolled{background:color-mix(in srgb,var(--bg) 68%,transparent);backdrop-filter:blur(22px) saturate(1.5)}
+.nav-links>a{position:relative;padding-block:6px}
+.nav-links>a::after{content:"";position:absolute;inset:auto 0 0;height:2px;border-radius:2px;background:var(--accent);scale:0 1;transform-origin:left;transition:scale .4s var(--ease)}
+.nav-links>a:hover::after,.nav-links>a[aria-current="location"]::after{scale:1 1}
+.nav-links>a[aria-current="location"]{text-decoration:none}
+
+/* Hero: satu momen utama — urutan masuk saat halaman dibuka */
+@keyframes rise{from{opacity:0;translate:0 34px}to{opacity:1;translate:0}}
+@keyframes unveil{from{clip-path:inset(100% 0 0 0);translate:0 46px}to{clip-path:inset(0);translate:0}}
+@keyframes ringin{from{opacity:0;scale:.55}to{opacity:1;scale:1}}
+@keyframes spin{to{rotate:360deg}}
+@keyframes drift{50%{translate:3% -4%}}
+@keyframes marquee{to{translate:-50% 0}}
+.hero-copy>*{animation:rise 1.1s var(--ease) both;animation-delay:calc(.12s + var(--i,0)*.09s)}
+.hero-layered-portrait{animation:unveil 1.5s var(--ease) .3s both;transform:translate3d(calc(var(--px,0)*10px),calc(var(--py,0)*6px),0);transition:transform .7s var(--ease)}
+.hero-portrait-aura{animation:drift 14s ease-in-out infinite;transform:translate3d(calc(var(--px,0)*-22px),calc(var(--py,0)*-14px),0);transition:transform .9s var(--ease)}
+.hero-ring{position:absolute;z-index:1;width:66%;aspect-ratio:1;right:14%;top:11%;border-radius:50%;pointer-events:none;
+  background:conic-gradient(transparent 0 48%,var(--accent) 84%,transparent);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
+  animation:ringin 1.6s var(--ease) .55s both,spin 18s linear 2s infinite}
+.button{transition:transform .35s var(--ease),box-shadow .35s,background .3s,border-color .3s}
+.button-primary:hover{box-shadow:0 14px 40px -8px rgb(244 63 70/.55)}
+
+/* Marquee */
+.marquee{overflow:hidden;border-bottom:1px solid var(--border);padding-block:20px;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:marquee 42s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{display:inline-flex;align-items:center;gap:28px;padding-right:28px;font:600 clamp(1rem,2vw,1.35rem) var(--display);color:var(--muted);white-space:nowrap}
+.marquee span::after{content:"✦";color:var(--accent);font-size:.8em}
+
+/* Scroll reveal */
+.js [data-reveal]{opacity:0;translate:0 32px;transition:opacity .9s var(--ease),translate .9s var(--ease),transform .5s var(--ease),border-color .3s,box-shadow .3s;transition-delay:var(--d,0s),var(--d,0s),0s,0s,0s}
+.js [data-reveal].in{opacity:1;translate:0}
+.glow{background-image:radial-gradient(420px circle at var(--mx,-999px) var(--my,-999px),rgb(255 70 80/.11),transparent 62%)}
+
+/* Foto proyek: unmask + zoom halus (tanpa memotong/mengubah foto) */
+.project-media{overflow:hidden}
+.project-photo{transform:none!important;transition:scale 1.5s var(--ease)}
+.js .project-card:not(.in) .project-photo{scale:1.2}
+.project-card.in:hover .project-photo{scale:1.05;transition-duration:.9s}
+.project-grid .project-card:hover{transform:perspective(1000px) translateY(-6px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));box-shadow:0 34px 70px -24px rgb(244 63 70/.35)}
+.project-photo-overlay{transition:opacity .5s}
+
+/* Timeline & kartu pengalaman */
+.timeline-marker{transition:background .5s,box-shadow .5s,scale .5s var(--ease)}
+.timeline-marker.is-active{background:var(--accent);scale:1.25;box-shadow:0 0 0 6px rgb(244 63 70/.18),0 0 26px var(--accent)}
+.experience-details:not([hidden]){animation:rise .55s var(--ease) both}
+.expand-icon{display:inline-block;transition:rotate .4s var(--ease)}
+.filter-button{transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
+.filter-button:hover{transform:translateY(-2px)}
+.skill-tag{transition:background .25s,color .25s,transform .3s var(--ease)}
+.skill-tag:hover{transform:translateY(-3px);background:var(--accent-deep);color:#fff}
+
+/* Dialog: masuk/keluar halus */
+.project-dialog{opacity:0;translate:0 28px;scale:.96;transition:opacity .35s,translate .55s var(--ease),scale .55s var(--ease),overlay .55s allow-discrete,display .55s allow-discrete}
+.project-dialog[open]{opacity:1;translate:0;scale:1}
+@starting-style{.project-dialog[open]{opacity:0;translate:0 28px;scale:.96}}
+.project-dialog::backdrop{background:rgb(3 4 8/.72);backdrop-filter:blur(12px);opacity:0;transition:opacity .4s,overlay .4s allow-discrete,display .4s allow-discrete}
+.project-dialog[open]::backdrop{opacity:1}
+@starting-style{.project-dialog[open]::backdrop{opacity:0}}
+.dialog-close{transition:rotate .4s var(--ease),background .3s}
+.dialog-close:hover{rotate:90deg}
+.dialog-content>*{animation:rise .7s var(--ease) both}
+
+/* Tema terang */
+:root[data-theme="light"] .glow{background-image:radial-gradient(420px circle at var(--mx,-999px) var(--my,-999px),rgb(201 30 42/.08),transparent 62%)}
+
+@media (max-width:760px){.hero-ring{width:78%;right:11%;top:16%}.project-grid .project-card:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .js [data-reveal]{opacity:1;translate:none}.marquee-track{animation:none}
+}
